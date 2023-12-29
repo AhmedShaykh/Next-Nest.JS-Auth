@@ -1,13 +1,20 @@
+import mongoose from "mongoose";
 import express from "express";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
-
-const PORT = 8080;
 
 app.get("/", (req, res) => {
     res.send("Check");
 });
 
-app.listen(PORT, () => {
-    console.log(`Listening On ${PORT}`);
-});
+const PORT = process.env.PORT;
+
+mongoose.connect(process.env.DATABASE!).then(() => {
+    app.listen(PORT, () => {
+        console.log(`Server Running On PORT: ${PORT}`);
+    });
+})
+    .catch(console.error);

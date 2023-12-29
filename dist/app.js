@@ -12,9 +12,11 @@ app.get("/", (req, res) => {
     res.send("Check");
 });
 const PORT = process.env.PORT;
-mongoose_1.default.connect(process.env.DATABASE).then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server Running On PORT: ${PORT}`);
-    });
+mongoose_1.default.connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 })
-    .catch(console.error);
+    .then(() => {
+    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+})
+    .catch((error) => console.log(`${error} Did Not Connect`));
