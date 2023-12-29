@@ -26,33 +26,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const notes_1 = __importDefault(require("./routes/notes"));
-const mongoose_1 = __importDefault(require("mongoose"));
+const NotesController = __importStar(require("../controllers/notes"));
 const express_1 = __importDefault(require("express"));
-const http_errors_1 = __importStar(require("http-errors"));
-const dotenv_1 = __importDefault(require("dotenv"));
-const morgan_1 = __importDefault(require("morgan"));
-dotenv_1.default.config();
-const app = (0, express_1.default)();
-const PORT = process.env.PORT;
-app.use(express_1.default.json());
-app.use((0, morgan_1.default)("dev"));
-app.use("/api/notes", notes_1.default);
-app.use((req, res, next) => {
-    next((0, http_errors_1.default)(404, "Endpoint Not Found"));
-});
-app.use((error, req, res, next) => {
-    console.error(error);
-    let errorMessage = "An Unknown Error Occurred";
-    let statusCode = 500;
-    if ((0, http_errors_1.isHttpError)(error)) {
-        statusCode = error.status;
-        errorMessage = error.message;
-    }
-    res.status(statusCode).json({ error: errorMessage });
-});
-mongoose_1.default.connect(process.env.DATABASE).then(() => {
-    app.listen(PORT, () => console.log(`Server Running On PORT: ${PORT}`));
-})
-    .catch(console.error);
-exports.default = app;
+const router = express_1.default.Router();
+router.get("/", NotesController.getNotes);
+router.get("/:noteId", NotesController.getNote);
+router.post("/", NotesController.createNote);
+exports.default = router;

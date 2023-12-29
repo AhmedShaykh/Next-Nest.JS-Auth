@@ -1,4 +1,4 @@
-import NoteModel from "./models/note";
+import notesRoutes from "./routes/notes";
 import mongoose from "mongoose";
 import express, {
     NextFunction,
@@ -7,6 +7,7 @@ import express, {
 } from "express";
 import createHttpError, { isHttpError } from "http-errors";
 import dotenv from "dotenv";
+import morgan from "morgan";
 
 dotenv.config();
 
@@ -16,13 +17,9 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 
-app.get("/", async (req, res) => {
+app.use(morgan("dev"));
 
-    const notes = await NoteModel.find().exec();
-
-    res.status(200).json(notes);
-
-});
+app.use("/api/notes", notesRoutes);
 
 app.use((req, res, next) => {
 
@@ -46,6 +43,7 @@ app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
     }
 
     res.status(statusCode).json({ error: errorMessage });
+
 });
 
 mongoose.connect(process.env.DATABASE!).then(() => {
