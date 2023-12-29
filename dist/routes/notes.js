@@ -32,4 +32,6 @@ const router = express_1.default.Router();
 router.get("/", NotesController.getNotes);
 router.get("/:noteId", NotesController.getNote);
 router.post("/", NotesController.createNote);
+router.put("/:noteId", NotesController.updateNote);
+router.delete("/:noteId", NotesController.deleteNote);
 exports.default = router;
