@@ -1,10 +1,10 @@
 import React from "react";
-import Main from "@/Components/Main";
+import Notes from "@/Components/Notes";
 
 const Home = () => {
     return (
         <>
-            <Main />
+            <Notes />
         </>
     )
 };
