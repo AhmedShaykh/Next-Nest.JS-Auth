@@ -1,7 +1,8 @@
-import React, { FC } from "react";
 import { formatDate } from "@/libs/formatDate";
+import { Pencil, Trash2 } from "lucide-react";
+import Link from "next/link";
 
-const Note: FC<any> = ({ item }) => {
+const Note = ({ item }: any) => {
 
     let createdUpdatedText: string;
 
@@ -29,6 +30,20 @@ const Note: FC<any> = ({ item }) => {
                 <p className="text-white">
                     {createdUpdatedText}
                 </p>
+            </div>
+
+            <div className="absolute top-5 right-2 flex flex-col gap-2">
+                <Link
+                    href={`/editNote/${item._id}`}
+                >
+                    <button className="p-2 bg-cyan-700 text-white rounded-md">
+                        <Pencil />
+                    </button>
+                </Link>
+
+                <button className="p-2 bg-red-700 text-white rounded-md">
+                    <Trash2 />
+                </button>
             </div>
         </div>
     )

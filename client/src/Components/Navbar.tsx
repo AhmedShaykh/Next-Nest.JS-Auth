@@ -1,7 +1,11 @@
+"use client";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import React from "react";
 
 const Navbar = () => {
+
+    const router = useRouter();
+
     return (
         <>
             <header className="text-gray-400 bg-gray-900 body-font">
@@ -15,9 +19,11 @@ const Navbar = () => {
                     </Link>
 
                     <button
-                        className="inline-flex items-center bg-blue-700 text-white font-medium border-0 py-2 px-4 focus:outline-none hover:bg-white hover:text-black rounded text-sm mt-4 md:mt-0"
+                        className="inline-flex items-center bg-blue-700 text-white font-medium border-0 py-2 px-4 focus:outline-none hover:bg-white 
+                        hover:text-black rounded text-sm mt-4 md:mt-0"
+                        onClick={() => router.push("/addNote")}
                     >
-                        Button
+                        Add Note
                     </button>
                 </div>
             </header>
