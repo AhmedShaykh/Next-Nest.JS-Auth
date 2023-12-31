@@ -8,6 +8,7 @@ import express, {
 import createHttpError, { isHttpError } from "http-errors";
 import dotenv from "dotenv";
 import morgan from "morgan";
+import cors from "cors";
 
 dotenv.config();
 
@@ -18,6 +19,8 @@ const PORT = process.env.PORT;
 app.use(express.json());
 
 app.use(morgan("dev"));
+
+app.use(cors());
 
 app.use("/api/notes", notesRoutes);
 
@@ -43,7 +46,6 @@ app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
     }
 
     res.status(statusCode).json({ error: errorMessage });
-
 });
 
 mongoose.connect(process.env.DATABASE!).then(() => {
