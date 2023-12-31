@@ -109,7 +109,7 @@ export const login: RequestHandler<unknown, unknown, LoginBody, unknown> = async
     }
 };
 
-export const logout: RequestHandler = (req, res, next) => {
+export const logOut: RequestHandler = (req, res, next) => {
 
     req.session.destroy(error => {
 

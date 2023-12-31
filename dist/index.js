@@ -26,6 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const auth_1 = require("./middleware/auth");
 const notes_1 = __importDefault(require("./routes/notes"));
 const users_1 = __importDefault(require("./routes/users"));
 const mongoose_1 = __importDefault(require("mongoose"));
@@ -55,7 +56,7 @@ app.use((0, express_session_1.default)({
     }),
 }));
 app.use("/api/users", users_1.default);
-app.use("/api/notes", notes_1.default);
+app.use("/api/notes", auth_1.requiresAuth, notes_1.default);
 app.use((req, res, next) => {
     next((0, http_errors_1.default)(404, "Endpoint Not Found"));
 });
