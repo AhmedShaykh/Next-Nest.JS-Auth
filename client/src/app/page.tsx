@@ -1,10 +1,13 @@
-import React from "react";
+import { getNotes } from "@/services/index.service";
 import Notes from "@/Components/Notes";
 
-const Home = () => {
+const Home = async () => {
+
+    const notes = await getNotes();
+
     return (
         <>
-            <Notes />
+            <Notes notes={notes} />
         </>
     )
 };

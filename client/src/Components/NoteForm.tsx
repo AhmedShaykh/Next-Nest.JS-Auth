@@ -23,15 +23,23 @@ const NoteForm: FC<any> = ({ noteId }) => {
 
                 response = await axios.put(`${process.env.NEXT_PUBLIC_LOCAL_API_URL}/api/notes/${noteId._id}`, note);
 
+                toast.success("Updated Note");
+
             } else {
 
                 response = await axios.post(`${process.env.NEXT_PUBLIC_LOCAL_API_URL}/api/notes/`, note);
 
+                toast.success("Add Note");
+
             }
 
-            toast.success(response.data.message);
+            console.log(response.data);
 
-            router.push("/");
+            setTimeout(() => {
+
+                router.push("/");
+
+            }, 2000);
 
         } catch (error: any) {
 
