@@ -17,3 +17,19 @@ export async function getNotes() {
     }
 
 };
+
+export async function getUsers() {
+
+    try {
+
+        const response = await axios.get(`${baseURL}/api/users/`);
+
+        return response;
+
+    } catch (error) {
+
+        console.log("Error");
+
+    }
+
+};
