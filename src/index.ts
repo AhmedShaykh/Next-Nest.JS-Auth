@@ -1,4 +1,5 @@
 import notesRoutes from "./routes/notes";
+import usersRoutes from "./routes/users";
 import mongoose from "mongoose";
 import express, {
     NextFunction,
@@ -23,6 +24,8 @@ app.use(morgan("dev"));
 app.use(cors());
 
 app.use("/api/notes", notesRoutes);
+
+app.use("/api/users", usersRoutes);
 
 app.use((req, res, next) => {
 

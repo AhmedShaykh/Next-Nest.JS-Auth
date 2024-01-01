@@ -27,6 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const notes_1 = __importDefault(require("./routes/notes"));
+const users_1 = __importDefault(require("./routes/users"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const express_1 = __importDefault(require("express"));
 const http_errors_1 = __importStar(require("http-errors"));
@@ -40,6 +41,7 @@ app.use(express_1.default.json());
 app.use((0, morgan_1.default)("dev"));
 app.use((0, cors_1.default)());
 app.use("/api/notes", notes_1.default);
+app.use("/api/users", users_1.default);
 app.use((req, res, next) => {
     next((0, http_errors_1.default)(404, "Endpoint Not Found"));
 });
