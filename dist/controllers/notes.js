@@ -13,15 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteNote = exports.updateNote = exports.createNote = exports.getNote = exports.getNotes = void 0;
-const assertIsDefined_1 = require("../utils/assertIsDefined");
 const note_1 = __importDefault(require("../models/note"));
 const http_errors_1 = __importDefault(require("http-errors"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const getNotes = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const authenticatedUserId = req.session.userId;
     try {
-        (0, assertIsDefined_1.assertIsDefined)(authenticatedUserId);
-        const notes = yield note_1.default.find({ userId: authenticatedUserId }).exec();
+        const notes = yield note_1.default.find().exec();
         res.status(200).json(notes);
     }
     catch (error) {
@@ -31,18 +28,13 @@ const getNotes = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
 exports.getNotes = getNotes;
 const getNote = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const noteId = req.params.noteId;
-    const authenticatedUserId = req.session.userId;
     try {
-        (0, assertIsDefined_1.assertIsDefined)(authenticatedUserId);
         if (!mongoose_1.default.isValidObjectId(noteId)) {
             throw (0, http_errors_1.default)(400, "Invalid Note ID");
         }
         const note = yield note_1.default.findById(noteId).exec();
         if (!note) {
             throw (0, http_errors_1.default)(400, "Note Not Found");
-        }
-        if (!note.userId.equals(authenticatedUserId)) {
-            throw (0, http_errors_1.default)(401, "You Cannot Access This Note");
         }
         res.status(200).json(note);
     }
@@ -55,9 +47,7 @@ exports.getNote = getNote;
 const createNote = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const title = req.body.title;
     const text = req.body.text;
-    const authenticatedUserId = req.session.userId;
     try {
-        (0, assertIsDefined_1.assertIsDefined)(authenticatedUserId);
         if (!title) {
             throw (0, http_errors_1.default)(400, "Note Must Have A Title");
         }
@@ -65,7 +55,6 @@ const createNote = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
             throw (0, http_errors_1.default)(400, "Note Must Have A Text");
         }
         const newNote = yield note_1.default.create({
-            userId: authenticatedUserId,
             title: title,
             text: text
         });
@@ -82,9 +71,7 @@ const updateNote = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     const noteId = req.params.noteId;
     const newTitle = req.body.title;
     const newText = req.body.text;
-    const authenticatedUserId = req.session.userId;
     try {
-        (0, assertIsDefined_1.assertIsDefined)(authenticatedUserId);
         if (!mongoose_1.default.isValidObjectId(noteId)) {
             throw (0, http_errors_1.default)(400, "Invalid Note ID");
         }
@@ -94,9 +81,6 @@ const updateNote = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         const note = yield note_1.default.findById(noteId).exec();
         if (!note) {
             throw (0, http_errors_1.default)(400, "Note Not Found");
-        }
-        if (!note.userId.equals(authenticatedUserId)) {
-            throw (0, http_errors_1.default)(401, "You Cannot Access This Note");
         }
         if (newTitle)
             note.title = newTitle;
@@ -112,9 +96,7 @@ const updateNote = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 exports.updateNote = updateNote;
 const deleteNote = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const noteId = req.params.noteId;
-    const authenticatedUserId = req.session.userId;
     try {
-        (0, assertIsDefined_1.assertIsDefined)(authenticatedUserId);
         if (!mongoose_1.default.isValidObjectId(noteId)) {
             throw (0, http_errors_1.default)(400, "Invalid Note ID");
         }
