@@ -2,11 +2,9 @@
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const Nav = ({ user }: any) => {
+const Nav = () => {
 
     const router = useRouter();
-
-    console.log(user);
 
     return (
         <>

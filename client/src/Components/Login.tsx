@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
-import axios from "axios";
 
 const Login = () => {
 
@@ -17,10 +16,6 @@ const Login = () => {
     const onSubmit = async () => {
 
         try {
-
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_LOCAL_API_URL}/api/users/login`, login);
-
-            console.log(response);
 
             toast.success("Successfully Login");
 

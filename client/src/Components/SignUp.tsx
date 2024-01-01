@@ -3,7 +3,6 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import axios from "axios";
 
 const SignUp = () => {
 
@@ -18,24 +17,6 @@ const SignUp = () => {
     const onSubmit = async () => {
 
         try {
-
-            // if (signUp.username) {
-
-            //     toast.error("UserName Already Exists...");
-
-            //     return
-            // }
-
-            // if (signUp.email) {
-
-            //     toast.error("User Already Exists...");
-
-            //     return
-            // }
-
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_LOCAL_API_URL}/api/users/signup`, signUp);
-
-            console.log(response);
 
             toast.success("Successfully Register");
 

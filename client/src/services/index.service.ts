@@ -18,13 +18,21 @@ export async function getNotes() {
 
 };
 
-export async function getUsers() {
+export async function register(signUp: any) {
 
     try {
 
-        const response = await axios.get(`${baseURL}/api/users/`);
+    } catch (error) {
 
-        return response;
+        console.log("Error");
+
+    }
+
+};
+
+export async function loginUser(login: any) {
+
+    try {
 
     } catch (error) {
 
