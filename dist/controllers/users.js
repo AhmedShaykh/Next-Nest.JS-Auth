@@ -45,6 +45,11 @@ const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
             return res.status(401).json({ message: "Invalid Password" });
         }
         const token = jsonwebtoken_1.default.sign({ userId: user._id, email: user.email }, process.env.SESSION_SECRET, { expiresIn: "1h" });
+        res.cookie("token", token, {
+            httpOnly: true,
+            maxAge: 3600000,
+            secure: process.env.NODE_ENV === "production"
+        });
         res.status(200).json({ user: user, token: token });
     }
     catch (error) {
@@ -52,22 +57,3 @@ const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.login = login;
-// export const getUser: RequestHandler = async (req, res, next) => {
-//     const userId = req.body.userId;
-//     try {
-//         const user = await UserModel.findById(userId).select("-password");
-//         if (!user) {
-//             return res.status(404).json({ message: "User Not Found" });
-//         }
-//         res.status(200).json({ user });
-//     } catch (error) {
-//         next(error);
-//     }
-// };
-// export const logout: RequestHandler = async (req, res, next) => {
-//     try {
-//         res.status(200).json({ message: "Logout successful" });
-//     } catch (error) {
-//         next(error);
-//     }
-// };
