@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { loginUser } from "@/services/index.service";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
@@ -16,6 +17,10 @@ const Login = () => {
     const onSubmit = async () => {
 
         try {
+
+            const res = await loginUser(login);
+
+            console.log(res);
 
             toast.success("Successfully Login");
 

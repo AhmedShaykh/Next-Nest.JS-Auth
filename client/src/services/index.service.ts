@@ -15,29 +15,34 @@ export async function getNotes() {
         console.log("Error");
 
     }
-
 };
 
 export async function register(signUp: any) {
 
     try {
 
+        const response = await axios.post(`${baseURL}/api/users/register`, signUp);
+
+        return response.data;
+
     } catch (error) {
 
         console.log("Error");
 
     }
-
 };
 
 export async function loginUser(login: any) {
 
     try {
 
+        const response = await axios.post(`${baseURL}/api/users/login`, login);
+
+        return response.data;
+
     } catch (error) {
 
         console.log("Error");
 
     }
-
 };

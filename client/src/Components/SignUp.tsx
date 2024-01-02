@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { register } from "@/services/index.service";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -17,6 +18,10 @@ const SignUp = () => {
     const onSubmit = async () => {
 
         try {
+
+            const res = await register(signUp);
+
+            console.log(res);
 
             toast.success("Successfully Register");
 
